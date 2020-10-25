@@ -123,13 +123,13 @@ def agregar():
 
 				return {
 					'datos' : juego,
-					'estado': 1,
+					'estado': 1
 				}
 			else :
 
 				return {
 					'estado' : 0,
-					'datos' : 'Juego encontrado',
+					'datos' : 'Juego encontrado'
 
 				}
 				

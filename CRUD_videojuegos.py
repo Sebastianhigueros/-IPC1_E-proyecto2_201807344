@@ -14,9 +14,9 @@ class CRUD_videojuegos:
 			if Videojuego.Nombre == Nombre:
 				print ("el juego ya existe")
 				return False
-			self.Videojuego.append(Videojuego(self.Contador,Nombre,Anio,precio,categoria1,categoria2,categoria3,Foto,Banner,Descripcion))
-			self.Contador += 1
-			return True	
+		self.Videojuego.append(Videojuego(self.Contador,Nombre,Anio,precio,categoria1,categoria2,categoria3,Foto,Banner,Descripcion))
+		self.Contador += 1
+		return True	
 
 			#buscar un videojuego
 	def buscar_Videojuego(self,Nombre):
@@ -40,14 +40,14 @@ class CRUD_videojuegos:
 				self.Banner = nuevo_Banner
 				self.Descripcion = nuevo_Descripcion
 				return True
-			return False	
+		return False	
 
 				# busqueda de juegos por categoria
 	def buscar_categoria(self,categoria):
 		for Videojuego in self.Videojuego:
 			if Videojuego.categoria1 == categoria or Videojuego.categoria2 == categoria or Videojuego.categoria3 == categoria:
 				return videojuego.dump()			
-			return None	
+		return None	
 
 			# eliminar juego si el usuario es administrador
 	def Eliminar_Videojuego(self,Nombre):
@@ -55,7 +55,7 @@ class CRUD_videojuegos:
 			if Videojuego.Nombre == Nombre:
 				self.Videojuego.remove(Videojuego) 		
 				return True
-			return False	
+		return False	
 
 
 				# lectura de archivo CSV
@@ -77,9 +77,11 @@ class CRUD_videojuegos:
 				self.Videojuego[numero_linea].Descripcion = linea[8]
 				
 				self.Contador += 1
-			
+				
 			else:
 				data = list(linea)
+
+		return True		
 		
 
 		numero_linea += 1
@@ -89,7 +91,7 @@ class CRUD_videojuegos:
 		for videojuego in self.Videojuego:
 			if Videojuego.Nombre == Nombre:
 				return Videojuego.dump()
-						
+		return None			
 				
 
 

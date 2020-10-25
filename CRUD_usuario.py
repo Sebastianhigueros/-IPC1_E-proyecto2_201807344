@@ -29,7 +29,7 @@ class CRUD_usuario:
 		#mostrar los usuarios del sistema	
 	def listar_usuarios(self):
 
-		return json.dumps([])
+		return json.dumps([Usuario.dump() for usuario in self.usuario])
 
 
 			# modificar la informacion del usuario

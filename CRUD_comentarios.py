@@ -9,7 +9,6 @@ class CRUD_comentarios:
 		self.contador = 0
 
 	def comentar(self,usuario,comentario):
-		comentario.usuario = usuario
-		comentario.fecha = datetime.datetime.now()
-		comentario.comentario = comentario
-		return comentario	
+		for comentario in self.comentarios :
+			self.comentario.append(Comentario(usuario,datetime.datetime.now(),comentario))
+			return True	
