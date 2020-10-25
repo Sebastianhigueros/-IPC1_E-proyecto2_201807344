@@ -28,11 +28,11 @@ def incio():
 		Contrasena = request.form.get('Contrasena')
 
 
-		if Usuarios.buscar_usuario(nombre_usuario,Contrasena) is not None :
+		if Usuarios.buscar_usuario(nombre_usuario,Contrasena) == True :
 			response["estado"] = 1
 			return response
-		response["estado"] = 0
-		return response
+	response["estado"] = 0
+	return response
 
 @app.route('/Registro', methods = ['POST'])	
 def registrar():
@@ -67,7 +67,7 @@ def recuperar_contrasena():
 			response["estado"] = 1	
 			response["Contrasena"] = usuario.Contrasena
 
-		return response
+	return response
 
 @app.route('/crear_videojuego', methods = ['POST'])
 def crear_videojuego():
