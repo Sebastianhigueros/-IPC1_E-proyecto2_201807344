@@ -23,8 +23,8 @@ class CRUD_usuario:
 		for usuario in self.usuario:
 			if usuario.nombre_usuario == nombre_usuario and usuario.Contrasena == Contrasena:
 				return True
-
-		return False
+			else:	
+				return False
 
 		#mostrar los usuarios del sistema	
 	def listar_usuarios(self):
