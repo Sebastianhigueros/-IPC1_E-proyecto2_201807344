@@ -17,7 +17,7 @@ app = Flask(__name__)
 CORS(app)
 
 @app.route('/inicio_sesion', methods=['POST'])
-def incio():
+def inicio():
 	
 
 	if request.method == 'POST':
