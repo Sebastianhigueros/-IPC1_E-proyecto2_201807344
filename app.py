@@ -28,7 +28,7 @@ def incio():
 		Contrasena = request.form.get('Contrasena')
 
 
-		if Usuarios.buscar_usuario(nombre_usuario,Contrasena) == True :
+		if Usuarios.buscar_usuario(nombre_usuario,Contrasena) is not None :
 			response["estado"] = 1
 			return response
 		response["estado"] = 0

@@ -39,6 +39,8 @@ class CRUD_videojuegos:
 				self.Foto = nuevo_Foto
 				self.Banner = nuevo_Banner
 				self.Descripcion = nuevo_Descripcion
+				return True
+			return False	
 
 				# busqueda de juegos por categoria
 	def buscar_categoria(self,categoria):
@@ -52,7 +54,9 @@ class CRUD_videojuegos:
 		for Videojuego in self.Videojuego:
 			if Videojuego.Nombre == Nombre:
 				self.Videojuego.remove(Videojuego) 		
-				contador -= 1
+				return True
+			return False	
+
 
 				# lectura de archivo CSV
 	def lectura_de_archivo(self,ruta):
