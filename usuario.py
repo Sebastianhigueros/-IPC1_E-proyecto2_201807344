@@ -24,3 +24,9 @@ class Usuario:
 			'videojuego': devolver_juegos()
 
 		}
+
+	def inicio (self,nombre_usuario,Contrasena):
+		if self.nombre_usuario == nombre_usuario and self.Contrasena == Contrasena :
+			return True
+			
+		return False	

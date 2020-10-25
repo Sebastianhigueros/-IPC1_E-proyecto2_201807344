@@ -21,10 +21,9 @@ class CRUD_usuario:
 		# busqueda para inicio de sesion	
 	def buscar_usuario(self,nombre_usuario,Contrasena):
 		for usuario in self.usuario:
-			if usuario.nombre_usuario == nombre_usuario and usuario.Contrasena == Contrasena:
+			if usuario.inicio(nombre_usuario,Contrasena) == True :
 				return True
-			else:	
-				return False
+			return False	
 
 		#mostrar los usuarios del sistema	
 	def listar_usuarios(self):
