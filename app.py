@@ -31,8 +31,9 @@ def inicio():
 		if Usuarios.buscar_usuario(nombre_usuario,Contrasena) == True :
 			response["estado"] = 1
 			return response
-	response["estado"] = 0
-	return response
+			
+		response["estado"] = 0
+		return response
 
 @app.route('/Registro', methods = ['POST'])	
 def registrar():
