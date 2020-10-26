@@ -10,11 +10,11 @@ class CRUD_usuario:
 
 		# registro de usuarios
 	def crear_usuario(self,Nombre,Apellido,nombre_usuario,Contrasena,tipo):
-		for usuario in self.usuario:
-			if usuario.nombre_usuario == nombre_usuario:
+		for U in self.usuario:
+			if U.nombre_usuario == nombre_usuario:
 				print ("el nombre de usuario ya existe")
 				return False
-		self.usuario.append(Usuario(self.contador, Nombre, Apellido, nombre_usuario, Contrasena, tipo))	
+		self.usuario.append(Usuario(self.contador,Nombre,Apellido,nombre_usuario,Contrasena,tipo))	
 		self.contador += 1
 		return True
 
@@ -23,7 +23,7 @@ class CRUD_usuario:
 		for usuario in self.usuario:
 			if usuario.inicio(nombre_usuario,Contrasena) == True :
 				return True
-			return False	
+		return False			
 
 		#mostrar los usuarios del sistema	
 	def listar_usuarios(self):
@@ -48,7 +48,7 @@ class CRUD_usuario:
 			if usuario.videojuegos.nombre == nombre_videojuego:
 				return False
 		usuario.videojuegos.append(
-			VideoJuego(ID_V,nombre_videojuego,anio,precio,categoria1,categoria2,categoria3,Foto,Banner,Descripcion))	
+		VideoJuego(ID_V,nombre_videojuego,anio,precio,categoria1,categoria2,categoria3,Foto,Banner,Descripcion))	
 		return True
 
 			#devuelve juegos de la biblioteca

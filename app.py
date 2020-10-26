@@ -24,15 +24,14 @@ def inicio():
 
 		response = {}
 
-		nombre_usuario = request.form.get('nombre_usuario')
+		usuario = request.form.get('nombre_usuario')
 		Contrasena = request.form.get('Contrasena')
 
-
-		if Usuarios.buscar_usuario(nombre_usuario,Contrasena) == True :
-			response["estado"] = 1
+		if Usuarios.buscar_usuario(usuario,Contrasena) == True:
+			response['estado'] = 1
 			return response
-			
-		response["estado"] = 0
+
+		response['estado'] = 0
 		return response
 
 @app.route('/Registro', methods = ['POST'])	
@@ -47,7 +46,7 @@ def registrar():
 		contrasena = request.form.get('contrasena')
 		
 		if Usuarios.crear_usuario(nombre,apellido,usuario,contrasena,"cliente") == True:
-			response["estado"] == 1
+			response["estado"] = 1
 		response["estado"] = 0
 		return response	
 
