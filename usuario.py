@@ -21,15 +21,10 @@ class Usuario:
 			'nombre_usuario' : self.nombre_usuario,
 			'Contrasena' : self.Contrasena,
 			'tipo' : self.tipo,
-			'videojuego': devolver_juegos()
+			'videojuego': self.videojuegos
 
 		}
 
-	def inicio(self,nombre_usuario,Contrasena):
-		
-		if self.nombre_usuario == nombre_usuario and self.Contrasena == Contrasena :
-			return True
 
-		return False
 			
 

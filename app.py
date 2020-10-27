@@ -11,28 +11,30 @@ Usuarios = CRUD_usuario()
 
 
 Usuarios.crear_usuario('Usuario','Maestro','admin','admin','Administrador')
+Usuarios.dump()
 
 app = Flask(__name__)
 
 CORS(app)
 
-@app.route('/inicio_sesion', methods=['POST'])
+@app.route('/inicio_sesion', methods = ['POST'])
 def inicio():
 	
 
-	if request.method == 'POST':
+    if request.method == 'POST':
 
-		response = {}
+        response = {}
 
-		usuario = request.form.get('nombre_usuario')
-		Contrasena = request.form.get('Contrasena')
+        usuario = request.form.get('nombre_usuario')
+        Contrasena = request.form.get('Contrasena')
 
-		if Usuarios.buscar_usuario(usuario,Contrasena) == True:
-			response['estado'] = 1
-			return response
+        busqueda =  Usuarios.buscar_usuario(usuario, Contrasena)
 
-		response['estado'] = 0
-		return response
+        if busqueda is  True:
+            response['estado'] = 1
+
+        response['estado'] = 0
+        return response
 
 @app.route('/Registro', methods = ['POST'])	
 def registrar():
@@ -40,6 +42,7 @@ def registrar():
 	response = {}
 
 	if request.method == 'POST':
+
 		nombre = request.form.get('nombre')
 		apellido = request.form.get('apellido')
 		usuario = request.form.get('nombre_usuario')
@@ -59,19 +62,38 @@ def recuperar_contrasena():
 	if request.method == 'GET':
 		Nombre_usuario = request.args.get("Nombre_usuario", None)
 
-		usuario = Usuarios.buscar_usuario(Nombre_usuario)
+		usuario = Usuarios.buscar_Contrasena(Nombre_usuario)
 
-		if usuario == None:
-			response["estado"] = 0
-		else:
-			response["estado"] = 1	
+		if usuario == True:
+			response["estado"] = 1
 			response["Contrasena"] = usuario.Contrasena
+		response['estado'] = 0
+		return response
 
-	return response
+
+
+@app.route('/modificacion', methods = ['POST'])
+def modificar(): 
+	if request.method == 'POST' :
+		response = {}
+
+		nombre = request.form.get('nuevo_nombre')
+		apellido = request.form.get('nuevo_apellido') 
+		usuario = request.form.get('nuevo_nombreusuario') 
+		contrasena = request.form.get('nueva_contrasena')  
+		
+		modificacion = Usuarios.modificar_usuario(nombre,apellido,usuario,contrasena)
+
+		if modificacion is not False :
+			response['estado'] = 1
+		response['estado'] = 0	
+		return response
+
 
 @app.route('/crear_videojuego', methods = ['POST'])
 def crear_videojuego():
 	response = {}
+
 
 	if request.method == 'POST':
 		nombre_juego = request.form.get('nombre')
@@ -88,6 +110,7 @@ def crear_videojuego():
 			response['estado'] = 1
 		response['estado'] = 0
 		return response	
+
 
 @app.route('/agregar_Videojuego', methods = ['POST'])
 def agregar():

@@ -10,25 +10,33 @@ class CRUD_usuario:
 
 		# registro de usuarios
 	def crear_usuario(self,Nombre,Apellido,nombre_usuario,Contrasena,tipo):
-		for U in self.usuario:
-			if U.nombre_usuario == nombre_usuario:
-				print ("el nombre de usuario ya existe")
+		for usuario in self.usuario:
+			if usuario.nombre_usuario == nombre_usuario:
 				return False
-		self.usuario.append(Usuario(self.contador,Nombre,Apellido,nombre_usuario,Contrasena,tipo))	
+		self.usuario.append(Usuario(self.contador,Nombre,Apellido,nombre_usuario,Contrasena,tipo))
+		print("se creo el usuario")	
 		self.contador += 1
 		return True
 
 		# busqueda para inicio de sesion	
 	def buscar_usuario(self,nombre_usuario,Contrasena):
-		for usuario in self.usuario:
-			if usuario.inicio(nombre_usuario,Contrasena) == True :
+		for x in self.usuario:
+			if x.nombre_usuario == nombre_usuario and x.Contrasena == Contrasena :
+				print("se encontro el usuario")
 				return True
-		return False			
+		return False
+
+	def buscar_Contrasena(self,nombre_usuario):
+		for usuario in self.usuario:
+			if usuario.nombre_usuario == nombre_usuario :
+				print(usuario.Contrasena)
+				return True
+		return False		
 
 		#mostrar los usuarios del sistema	
 	def listar_usuarios(self):
 
-		return json.dumps([Usuario.dump() for usuario in self.usuario])
+		return json.dumps([usuario.dump() for usuario in self.usuario])
 
 
 			# modificar la informacion del usuario
@@ -51,10 +59,8 @@ class CRUD_usuario:
 		VideoJuego(ID_V,nombre_videojuego,anio,precio,categoria1,categoria2,categoria3,Foto,Banner,Descripcion))	
 		return True
 
-			#devuelve juegos de la biblioteca
-	def devolver_juegos(self):
+
 		
-		return json.dumps([Videojuego.dump() for usuario.Videojuego in self.usuario])		
 
 	#def devolver_usuario(self):
 
