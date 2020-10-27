@@ -44,10 +44,11 @@ class CRUD_usuario:
 		for usuario in self.usuario:
 			if usuario.nombre == nuevo_nombre:
 				return False
-		self.nombre = nuevo_nombre
-		self.apellido = nuevo_apellido
-		self.nombre_usuario = nuevo_nombreusuario
-		self.Contrasena = nueva_contrasena
+		usuario.nombre = nuevo_nombre
+		usuario.apellido = nuevo_apellido
+		usuario.nombre_usuario = nuevo_nombreusuario
+		usuario.Contrasena = nueva_contrasena
+		print('modificacion exitosa')
 		return True
 
 		# devolver juegos a la biblioteca
@@ -59,9 +60,11 @@ class CRUD_usuario:
 		VideoJuego(ID_V,nombre_videojuego,anio,precio,categoria1,categoria2,categoria3,Foto,Banner,Descripcion))	
 		return True
 
-
+	def listar_biblioteca(self):
+		
+		return json.dumps([Videojuego.dump() for videojuego in usuario.videojuegos])	
 		
 
-	#def devolver_usuario(self):
+
 
 		

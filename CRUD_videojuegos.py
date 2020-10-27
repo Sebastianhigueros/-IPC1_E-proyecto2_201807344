@@ -96,7 +96,7 @@ class CRUD_videojuegos:
 
 
 
-		# mostrar la informacion del juego
+		# mostrar lista de videojuegos
 	def lista_videojuegos(self):
 	
 		return json.dumps([Videojuego.dump() for Videojuego in self.Videojuego])				
