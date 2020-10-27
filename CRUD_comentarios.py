@@ -10,5 +10,5 @@ class CRUD_comentarios:
 
 	def comentar(self,usuario,comentario):
 		for comentario in self.comentarios :
-			self.comentario.append(Comentario(usuario,datetime.datetime.now(),comentario))
+			self.comentario.append(Comentario(usuario,datetime.now(),comentario))
 			return True	

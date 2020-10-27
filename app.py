@@ -11,27 +11,26 @@ Usuarios = CRUD_usuario()
 
 Usuarios.crear_usuario('Usuario','Maestro','admin','admin','Administrador')
 
+
+
 app = Flask(__name__)
 
 CORS(app)
 
+
+
 @app.route('/inicio_sesion', methods = ['POST'])
 def inicio():
-	
-
-   
 
     response = {}
 
     usuario = request.json['nombre_usuario']
     Contrasena = request.json['Contrasena']
-    print(usuario)
-    print(Contrasena)
 
     busqueda =  Usuarios.buscar_usuario(usuario, Contrasena)
     if busqueda == True:
-
-        response["estado"] = 1
+    	response["estado"] = 1
+    	return response
 
     response["estado"] = 0
     return response
@@ -49,6 +48,7 @@ def registrar():
 		
 	if Usuarios.crear_usuario(nombre,apellido,usuario,contrasena,"cliente") == True:
 		response["estado"] = 1
+		return response
 	response["estado"] = 0
 	return response	
 
@@ -65,6 +65,8 @@ def recuperar_contrasena():
 	if usuario == True:
 		response["estado"] = 1
 		response["Contrasena"] = usuario.Contrasena
+		return response
+	
 	response["estado"] = 0
 	return response
 
@@ -84,6 +86,7 @@ def modificar():
 
 	if modificacion is not False :
 		response["estado"] = 1
+		return response
 	response["estado"] = 0	
 	return response
 
@@ -91,7 +94,7 @@ def modificar():
 @app.route('/listar')
 def listar():
 
-	return Usuarios.listar_usuario();
+	return Usuarios.listar_usuarios();
 
 @app.route('/biblioteca')
 def biblioteca() :
@@ -105,7 +108,7 @@ def crear_videojuego():
 
 
 	
-	nombre_juego = request.form.get('nombre')
+	nombre_juego = request.json['nombre']
 	anio = request.json['Anio']
 	precio = request.json['precio']
 	cate1 = request.json['categoria1']
@@ -117,6 +120,7 @@ def crear_videojuego():
 
 	if videojuegos.crear_videojuego(nombre_juego,anio,cate1,cate2,cate3,Foto,Banner,Descripcion) == True:
 		response["estado"] = 1
+		return response
 	response["estado"] = 0
 	return response	
 
@@ -137,8 +141,11 @@ def agregar():
 	Foto = request.json['Foto']
 	Banner = request.json['Banner']
 	Descripcion = request.json['Descripcion']
-	if Usuarios.agregar_Videojuego(ID,juego,Anio,precio,cate1,cate2,cate3,Foto,Banner,Descripcion) == True:
+
+
+	if Usuarios.agregar_videojuego(ID,juego,Anio,precio,cate1,cate2,cate3,Foto,Banner,Descripcion) == True:
 		response["estado"] = 1
+		return response
 	response["estado"] = 0
 	return response
 
@@ -148,9 +155,9 @@ def mostrar():
 
 	Nombre = request.json['Nombre']
 
-	juego = videojuegos.mostrar_juegos(Nombre)
+	juego = videojuegos.mostrar_juego(Nombre)
 
-	if juegos is not None:
+	if juego is not None:
 
 		return {
 					'datos' : juego,
@@ -192,6 +199,7 @@ def eliminar():
 
 	if eliminado == True :
 		respose["estado"] = 1
+		return response
 	response["estado"] = 0
 	return response
 
@@ -215,6 +223,7 @@ def comentar():
 
 	if comentarios.comentar(usaurio,comentario) == True:
 		response["estado"] = 1
+		return response
 	response["estado"] = 0
 	return response					
 

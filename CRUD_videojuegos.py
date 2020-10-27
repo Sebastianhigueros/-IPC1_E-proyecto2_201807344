@@ -10,50 +10,51 @@ class CRUD_videojuegos:
 
 		#crear un perfil de videojuego
 	def crear_Videojuego(self, Nombre,Anio,precio,categoria1,categoria2,categoria3,Foto,Banner,Descripcion):
-		for Videojuego in self.Videojuego:
-			if Videojuego.Nombre == Nombre:
+		for videojuego in self.Videojuego:
+			if videojuego.Nombre == Nombre:
 				print ("el juego ya existe")
 				return False
-		self.Videojuego.append(Videojuego(self.Contador,Nombre,Anio,precio,categoria1,categoria2,categoria3,Foto,Banner,Descripcion))
+		self.Videojuego.append(VideoJuego(self.Contador,Nombre,Anio,precio,categoria1,categoria2,categoria3,Foto,Banner,Descripcion))
+		print('el juego se creo correctamente')
 		self.Contador += 1
 		return True	
 
 			#buscar un videojuego
 	def buscar_Videojuego(self,Nombre):
-		for Videojuego in self.Videojuego:
-			if Videojuego.Nombre == Nombre:
+		for videojuego in self.Videojuego:
+			if videojuego.Nombre == Nombre:
 				return Videojuego.dump()
 
 		return None	
 
 		# modificar videojuego
 	def modificar_Videojuego(self,Nombre,nuevo_Nombre,nuevo_Anio,nuevo_precio,nuevo_categoria1,nuevo_categoria2,nuevo_categoria3,nuevo_Foto,nuevo_Banner,nuevo_Descripcion):
-		for Videojuego in self.Videojuego:
-			if self.Nombre == Nombre:
-				self.Nombre = nuevo_Nombre
-				self.Anio = nuevo_Anio
-				self.precio = nuevo_precio
-				self.categoria1 = nuevo_categoria1
-				self.categoria2 = nuevo_categoria2
-				self.categoria3 = nuevo_categoria3
-				self.Foto = nuevo_Foto
-				self.Banner = nuevo_Banner
-				self.Descripcion = nuevo_Descripcion
+		for videojuego in self.Videojuego:
+			if videojuego.Nombre == Nombre:
+				videojuego.Nombre = nuevo_Nombre
+				videojuego.Anio = nuevo_Anio
+				videojuego.precio = nuevo_precio
+				videojuego.categoria1 = nuevo_categoria1
+				videojuego.categoria2 = nuevo_categoria2
+				videojuego.categoria3 = nuevo_categoria3
+				videojuego.Foto = nuevo_Foto
+				videojuego.Banner = nuevo_Banner
+				videojuego.Descripcion = nuevo_Descripcion
 				return True
 		return False	
 
 				# busqueda de juegos por categoria
 	def buscar_categoria(self,categoria):
-		for Videojuego in self.Videojuego:
-			if Videojuego.categoria1 == categoria or Videojuego.categoria2 == categoria or Videojuego.categoria3 == categoria:
+		for videojuego in self.Videojuego:
+			if videojuego.categoria1 == categoria or videojuego.categoria2 == categoria or videojuego.categoria3 == categoria:
 				return videojuego.dump()			
 		return None	
 
 			# eliminar juego si el usuario es administrador
 	def Eliminar_Videojuego(self,Nombre):
-		for Videojuego in self.Videojuego:
-			if Videojuego.Nombre == Nombre:
-				self.Videojuego.remove(Videojuego) 		
+		for videojuego in self.Videojuego:
+			if videojuego.Nombre == Nombre:
+				self.Videojuego.remove(videojuego) 		
 				return True
 		return False	
 
@@ -89,8 +90,8 @@ class CRUD_videojuegos:
 
 	def mostrar_juego(self,Nombre):
 		for videojuego in self.Videojuego:
-			if Videojuego.Nombre == Nombre:
-				return Videojuego.dump()
+			if videojuego.Nombre == Nombre:
+				return videojuego.dump()
 		return None			
 				
 

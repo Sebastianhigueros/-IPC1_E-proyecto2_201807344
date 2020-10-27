@@ -1,16 +1,16 @@
 class VideoJuego:
 
 	def __init__(self,ID_V,Nombre,Anio,precio,categoria1,categoria2,categoria3,Foto,Banner,Descripcion):
-		self.__ID_V = ID_V
-		self.__Nombre = Nombre
-		self.__Anio = Anio
-		self.__precio = precio
-		self.__categoria1 = categoria1
-		self.__categoria2 = categoria2
-		self.__categoria3 = categoria3
-		self.__Foto = Foto
-		self.__Banner = Banner
-		self.__Descripcion = Descripcion
+		self.ID_V = ID_V
+		self.Nombre = Nombre
+		self.Anio = Anio
+		self.precio = precio
+		self.categoria1 = categoria1
+		self.categoria2 = categoria2
+		self.categoria3 = categoria3
+		self.Foto = Foto
+		self.Banner = Banner
+		self.Descripcion = Descripcion
 
 	def dump(self):
 		return{
