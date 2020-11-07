@@ -11,6 +11,7 @@ class VideoJuego:
 		self.Foto = Foto
 		self.Banner = Banner
 		self.Descripcion = Descripcion
+		self.comentarios = []
 
 	def dump(self):
 		return{
@@ -23,5 +24,6 @@ class VideoJuego:
 			'categoria3' : self.categoria3,
 			'Foto' : self.Foto,
 			'Banner' : self.Banner,
-			'Descripcion' : self.Descripcion
+			'Descripcion' : self.Descripcion,
+			'comentarios' : self.comentarios
 		}

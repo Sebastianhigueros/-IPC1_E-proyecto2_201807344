@@ -6,8 +6,7 @@ class CRUD_usuario:
 	#constructor
 	def __init__(self):
 		self.usuario = []
-		self.contador = 0;
-
+		self.contador = 0
 		# registro de usuarios
 	def crear_usuario(self,Nombre,Apellido,nombre_usuario,Contrasena,tipo):
 		for usuario in self.usuario:
@@ -16,7 +15,7 @@ class CRUD_usuario:
 		self.usuario.append(Usuario(self.contador,Nombre,Apellido,nombre_usuario,Contrasena,tipo))
 		print("se creo el usuario")	
 		self.contador += 1
-		return True
+		return True	
 
 		# busqueda para inicio de sesion	
 	def buscar_usuario(self,nombre_usuario,Contrasena):
@@ -29,10 +28,9 @@ class CRUD_usuario:
 	def buscar_Contrasena(self,nombre_usuario):
 		for usuario in self.usuario:
 			if usuario.nombre_usuario == nombre_usuario :
-				print(usuario.Contrasena)
-				return True
-		return False		
-
+				return usuario.dump()
+		return None		
+			
 		#mostrar los usuarios del sistema	
 	def listar_usuarios(self):
 
@@ -52,17 +50,20 @@ class CRUD_usuario:
 		return True
 
 		# devolver juegos a la biblioteca
-	def agregar_videojuego(self,ID_V,nombre_videojuego,anio,precio,categoria1,categoria2,categoria3,Foto,Banner,Descripcion):
+	def agregar_videojuego(self,nombre_usuario,ID,nombre_videojuego,anio,precio,categoria1,categoria2,categoria3,Foto,Banner,Descripcion):
 		for usuario in self.usuario:
-			if usuario.videojuegos.nombre == nombre_videojuego:
-				return False
-		usuario.videojuegos.append(
-		VideoJuego(ID_V,nombre_videojuego,anio,precio,categoria1,categoria2,categoria3,Foto,Banner,Descripcion))	
-		return True
+			if usuario.nombre_usuario == nombre_usuario:
+				for juego in usuario.videojuegos :
+					if juego.nombre_videojuego == usuario.videojuegos.Nombre:
+						return False
+					self.usuario.videojuegos.append(VideoJuego(ID,nombre_videojuego,anio,precio,categoria1,categoria2,categoria3,Foto,Banner,Descripcion))
+					return True
+			return False		
+
 
 	def listar_biblioteca(self):
 		
-		return json.dumps([Videojuego.dump() for videojuego in usuario.videojuegos])	
+		return json.dumps([VideoJuego.dump() for videojuego in self.usuario.videojuegos])	
 		
 
 

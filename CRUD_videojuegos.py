@@ -1,4 +1,5 @@
 from Videojuego import VideoJuego
+from comentarios import Comentarios
 import json
 import csv
 
@@ -6,7 +7,7 @@ class CRUD_videojuegos:
 	#Constructor
 	def __init__(self):
 		self.Videojuego = []
-		self.Contador = 0;
+		self.Contador = 0
 
 		#crear un perfil de videojuego
 	def crear_Videojuego(self, Nombre,Anio,precio,categoria1,categoria2,categoria3,Foto,Banner,Descripcion):
@@ -47,8 +48,8 @@ class CRUD_videojuegos:
 	def buscar_categoria(self,categoria):
 		for videojuego in self.Videojuego:
 			if videojuego.categoria1 == categoria or videojuego.categoria2 == categoria or videojuego.categoria3 == categoria:
-				return videojuego.dump()			
-		return None	
+				juegos = list[videojuego]			
+		return json.dumps(VideoJuego.dump() for juego in juegos)
 
 			# eliminar juego si el usuario es administrador
 	def Eliminar_Videojuego(self,Nombre):
@@ -66,35 +67,22 @@ class CRUD_videojuegos:
 			linea = csv.reader(File)
 
 			if numero_linea > 0 :
-				self.Videojuego[numero_linea].ID_V = self.Contador
-				self.Videojuego[numero_linea].Nombre = linea[0]
-				self.Videojuego[numero_linea].Anio = linea[1]
-				self.Videojuego[numero_linea].precio = linea[2]
-				self.Videojuego[numero_linea].categoria1 = linea[3]
-				self.Videojuego[numero_linea].categoria2 = linea[4]
-				self.Videojuego[numero_linea].categoria3 = linea[5]
-				self.Videojuego[numero_linea].Foto = linea[6]
-				self.Videojuego[numero_linea].Banner = linea[7]
-				self.Videojuego[numero_linea].Descripcion = linea[8]
 				
-				self.Contador += 1
-				
-			else:
-				data = list(linea)
+				self.Videojuego.append(VideoJuego(linea[0],linea[1],linea[2],linea[3],linea[4],linea[5],linea[6],linea[7],linea[8],linea[9],self.comentarios))
+
 
 		return True		
 		
 
-		numero_linea += 1
 
-
-	def mostrar_juego(self,Nombre):
+	def mostrar_juego(self,ID):
 		for videojuego in self.Videojuego:
-			if videojuego.Nombre == Nombre:
+			if videojuego.ID_V == ID:
 				return videojuego.dump()
 		return None			
 				
-
+	#def comentar(self,usuario,fecha,comentario):
+		
 
 
 		# mostrar lista de videojuegos
