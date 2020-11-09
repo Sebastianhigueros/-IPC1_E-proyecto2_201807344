@@ -1,5 +1,5 @@
 from Videojuego import VideoJuego
-
+import json
 
 class Usuario:
 
@@ -14,6 +14,7 @@ class Usuario:
 		self.videojuegos = []
 
 	def dump(self):
+		
 		return {
 			'ID' : self.ID,
 			'Nombre' : self.Nombre,
@@ -21,7 +22,7 @@ class Usuario:
 			'nombre_usuario' : self.nombre_usuario,
 			'Contrasena' : self.Contrasena,
 			'tipo' : self.tipo,
-			'videojuego': self.videojuegos
+			"videojuegos":  json.dumps([VideoJuego.dump() for videojuego in self.videojuegos])
 
 		}
 

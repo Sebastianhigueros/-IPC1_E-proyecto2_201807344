@@ -9,9 +9,8 @@ Usuarios = CRUD_usuario()
 
 
 Usuarios.crear_usuario('Usuario','Maestro','admin','admin','Administrador')
-videojuegos.crear_Videojuego('Call of duty: Black ops 2', '2012','650', 'fps', '','', 'https://images.app.goo.gl/u3jJFcBXmdDCbth9A','https://images.app.goo.gl/HBQzXUbVia3T5Ris5','Superando las expectativas de los fans con respecto a esta franquicia que ha batido todos los récords, Call of Duty®: Black Ops II lleva a los jugadores a un futuro cercano, la Guerra Fría del siglo XXI, donde la tecnología y las armas han dado pie a una nueva generación bélica.')
-videojuegos.crear_Videojuego('FIFA 18', '2017', '540' , 'deportes', '','', 'https://images.app.goo.gl/NqYnBr1gVC88aSRq9','https://images.app.goo.gl/xkfniusoJfxP3wo47','FIFA 18 es un videojuego de fútbol, desarrollado por Electronic Arts y publicado por EA Sports Canadá y EA Sports Rumania. Es el 25.º de la serie de videojuegos de la FIFA. Salió a la venta el 29 de septiembre de 2017, siendo la portada del mismo Cristiano Ronaldo.​')
-
+videojuegos.crear_Videojuego('Call of duty: Black ops 2', '2012','650', 'fps', '','', 'https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/styles/cover_290x414/public/media/image/2016/08/caratula-call-duty-black-ops-2.jpg','https://i.pinimg.com/originals/2b/f9/90/2bf990a4064ae797673a3a790a6dcec6.jpg','Superando las expectativas de los fans con respecto a esta franquicia que ha batido todos los récords, Call of Duty®: Black Ops II lleva a los jugadores a un futuro cercano, la Guerra Fría del siglo XXI, donde la tecnología y las armas han dado pie a una nueva generación bélica.')
+videojuegos.crear_Videojuego('FIFA 18', '2017', '540' , 'deportes', '','', 'https://498930-1579140-raikfcquaxqncofqfm.stackpathdns.com/wp-content/uploads/2017/09/DJdHDgoW0AE_DTc-1.jpg','https://puregaming.es/wp-content/uploads/2018/11/fifa-18.jpg','FIFA 18 es un videojuego de fútbol, desarrollado por Electronic Arts y publicado por EA Sports Canadá y EA Sports Rumania. Es el 25.º de la serie de videojuegos de la FIFA. Salió a la venta el 29 de septiembre de 2017, siendo la portada del mismo Cristiano Ronaldo.​')
 
 
 
@@ -29,12 +28,19 @@ def inicio():
     Contrasena = request.json['Contrasena']
     busqueda =  Usuarios.buscar_usuario(usuario, Contrasena)
 
-    if busqueda == True:
-    	response["estado"] = 1
-    	return response
+    if busqueda is not None:
+    	return{
+    		"estado": 1,
+    		"datos": busqueda["tipo"],
+    		"usuario": busqueda["nombre_usuario"]
 
-    response["estado"] = 0
-    return response
+    	}
+    else:
+    	return{
+    		"estado": 0,
+    		"datos": "el usuario no se encontro"
+
+    	}	
 
 @app.route('/Registro', methods = ['POST'])	
 def registrar():
@@ -48,13 +54,13 @@ def registrar():
 	contrasena = request.json['contrasena']
 	confirmacion = request.json['confirmarcontrasena']
 		
-	if contrasna == confirmacion and Usuarios.crear_usuario(nombre,apellido,usuario,contrasena,"Cliente") == True:
+	if contrasena == confirmacion and Usuarios.crear_usuario(nombre,apellido,usuario,contrasena,"Cliente") == True:
 		response["estado"] = 1
 		return response
 	response["estado"] = 0
 	return response	
 
-@app.route('/informacion_usuario')
+@app.route('/informacion_usuario',methods=['POST'])
 def info():
 
 	usuario = request.json['nombre_usuario']
@@ -86,7 +92,7 @@ def registraradmin():
 	contrasena = request.json['contrasena']
 	confirmacion = request.json['confirmarcontrasena']
 		
-	if contrasna == confirmacion and Usuarios.crear_usuario(nombre,apellido,usuario,contrasena,"Administrador") == True:
+	if contrasena == confirmacion and Usuarios.crear_usuario(nombre,apellido,usuario,contrasena,"Administrador") == True:
 		response["estado"] = 1
 		return response
 	response["estado"] = 0
@@ -103,7 +109,7 @@ def recuperar_contrasena():
 
 	if usuario is not None:
 
-		response["Contrasena"] = usuario.Contrasena
+		response["Contrasena"] = usuario["Contrasena"]
 		response["estado"] = 1
 		return response
 	response["estado"] = 0
@@ -115,18 +121,18 @@ def modificar():
 
 	response = {}
 
+	usuario = request.json['nombre_usuario']
 	nombre = request.json['nuevo_nombre']
 	apellido = request.json['nuevo_apellido']
-	usuario = request.json['nuevo_nombreusuario']
-	contrasena = request.json['nueva_contrasena']  
+	nuevousuario = request.json['nuevo_nombreusuario']
 		
-	modificacion = Usuarios.modificar_usuario(nombre,apellido,usuario,contrasena)
+	modificacion = Usuarios.modificar_usuario(usuario,nombre,apellido,nuevousuario)
 
-	if modificacion is not False :
-		response["estado"] = 1
-		return response
-	response["estado"] = 0	
-	return response
+	if modificacion is not None :
+		return {
+			"estado":1,
+			"usuario":modificacion['nombre_usuario']
+		}
 
 
 @app.route('/listar')
@@ -136,8 +142,8 @@ def listar():
 
 @app.route('/biblioteca')
 def biblioteca() :
-	
-	return 	Usuarios.listar_biblioteca()			
+	usuario = request.json["nombre_usuario"]
+	return 	Usuarios.listar_biblioteca(usuario)			
 
 
 @app.route('/crear_videojuego', methods = ['POST'])
@@ -146,17 +152,17 @@ def crear_videojuego():
 
 
 	
-	nombre_juego = request.json['nombre']
-	anio = request.json['Anio']
-	precio = request.json['precio']
-	cate1 = request.json['categoria1']
-	cate2 = request.json['categoria2']
-	cate3 = request.json['categoria3']
-	Foto = request.json['Foto']
-	Banner = request.json['Banner']
-	Descripcion = request.json['Descripcion']	
+	nombre_juego = request.json["Nombre"]
+	anio = request.json["Anio"]
+	precio = request.json["precio"]
+	cate1 = request.json["categoria1"]
+	cate2 = request.json["categoria2"]
+	cate3 = request.json["categoria3"]
+	Foto = request.json["Foto"]
+	Banner = request.json["Banner"]
+	Descripcion = request.json["Descripcion"]	
 
-	if videojuegos.crear_videojuego(nombre_juego,anio,cate1,cate2,cate3,Foto,Banner,Descripcion) == True:
+	if videojuegos.crear_Videojuego(nombre_juego,anio,precio,cate1,cate2,cate3,Foto,Banner,Descripcion) == True:
 		response["estado"] = 1
 		return response
 	response["estado"] = 0
@@ -180,50 +186,83 @@ def agregar():
 	Banner = request.json['Banner']
 	Descripcion = request.json['Descripcion']
 
-
-	if Usuarios.agregar_videojuego(ID,juego,Anio,precio,cate1,cate2,cate3,Foto,Banner,Descripcion) == True:
+	juego = Usuarios.agregar_videojuego(usuario,ID,juego,Anio,precio,cate1,cate2,cate3,Foto,Banner,Descripcion)
+	if juego == True:
 		response["estado"] = 1
+		response["juego"] = juego
 		return response
 	response["estado"] = 0
 	return response
 
-@app.route('/pagina_juego', methods = ['POST'])
+@app.route('/pagina_juego')
 def mostrar():
-	response = {}
 
-	ID = request.json['ID']
-
+	ID = request.json["ID_V"]
 	juego = videojuegos.mostrar_juego(ID)
 
-	if juego is not None:
 
+	if juego is  None:
 		return {
-					'datos' : juego,
-					'estado': 1
-		}
-	else :
-
-		return {
-					'estado' : 0,
-					'datos' : 'Juego no encontrado'
+			'estado' : 0,
+			'datos' : 'Juego no encontrado'
 
 		}
-				
+		
+	else:
+		return {
+			'datos' : juego,
+			'estado': 1
+		}
 
+@app.route('/info_juego',methods=['POST'])
+def buscarjuego:
 
+	juego = request.json['Nombre']
 
+	info = videojuegos.buscar_Videojuego(juego)
 
-@app.route('/cargar', methods = ['POST'])
-def carga():
-	response = {}
+	if info is not None:
 
+		return{
 
-	Ruta = request.json['ruta']
+			"estado": 1,
+			"datos": info
+		}
 
-	if videojuegos.lectura_de_archivo(Ruta) == True:
-		response["estado"] = 1
-	response ["estado"] = 0
-	return response
+	else:
+		
+		return {
+
+			"estado":0,
+			"datos": 'no se encontro el juego'
+		}	
+
+@app.route('/modificar_juego', methods=['POST'])
+def modificarjuego():
+
+	nombre = request.json['Nombre']
+	nuevo_nombre = request.json['nuevo_Nombre']
+	nuevo_anio = request.json['nuevo_Anio']
+	nuevo_precio = request.json['nuevo_precio']
+	nueva_cate1 = request.json['nuevo_categoria1']
+	nueva_cate2 = request.json['nuevo_categoria2']
+	nueva_cate3 = request.json['nuevo_categoria3']
+	nueva_Foto = request.json['nuevo_Foto']
+	nuevo_Banner = request.json['nuevo_Banner']
+	nuevo_desc = request.json['nuevo_Descripcion']
+
+	modificacion = videojuegos.modificar_Videojuego(nombre,nuevo_nombre,nuevo_anio,nuevo_precio,nueva_cate1,nueva_cate2,nueva_cate3,nueva_Foto,nuevo_Banner,nuevo_desc)
+
+	if modificacion is not None:
+		return{
+			'estado': 1,
+			'datos': modificacion
+		}
+	else:
+		return{
+			'estado': 0,
+			'datos':'no se encontro el juego'
+		}	
 
 
 @app.route('/Eliminar_juego', methods = ['POST'])
@@ -236,7 +275,7 @@ def eliminar():
 	eliminado = videojuegos.Eliminar_Videojuego(Nombre_juego)
 
 	if eliminado == True :
-		respose["estado"] = 1
+		response["estado"] = 1
 		return response
 	response["estado"] = 0
 	return response
@@ -282,14 +321,20 @@ def cate():
 @app.route('/comentar', methods = ['POST'])
 def comentar():
 	response = {}
-
+	nombrejuego = request.json['Nombre']
 	usuario = request.json['usuario']
 	fecha = datetime.now()
 	comentario = request.json['comentario']
 
-	videojuegos.comentar(usuario,fecha,comentario)	
+	videojuegos.comentar(nombrejuego,usuario,fecha,comentario)	
 	response['estado'] = 1
 	return response
+
+@app.route('/lista_comentarios', methods=['POST'])
+def listar_comentarios():
+	juego = request.json['Nombre']
+	return videojuegos.comentarios_de_juego(juego)
+
 
 
 

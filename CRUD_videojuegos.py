@@ -10,7 +10,7 @@ class CRUD_videojuegos:
 		self.Contador = 0
 
 		#crear un perfil de videojuego
-	def crear_Videojuego(self, Nombre,Anio,precio,categoria1,categoria2,categoria3,Foto,Banner,Descripcion):
+	def crear_Videojuego(self,Nombre,Anio,precio,categoria1,categoria2,categoria3,Foto,Banner,Descripcion):
 		for videojuego in self.Videojuego:
 			if videojuego.Nombre == Nombre:
 				print ("el juego ya existe")
@@ -41,8 +41,8 @@ class CRUD_videojuegos:
 				videojuego.Foto = nuevo_Foto
 				videojuego.Banner = nuevo_Banner
 				videojuego.Descripcion = nuevo_Descripcion
-				return True
-		return False	
+				return videojuego.dump()
+		return None	
 
 				# busqueda de juegos por categoria
 	def buscar_categoria(self,categoria):
@@ -59,30 +59,32 @@ class CRUD_videojuegos:
 				return True
 		return False	
 
-
-				# lectura de archivo CSV
-	def lectura_de_archivo(self,ruta):
-		numero_linea = 0;
-		with open(ruta, 'r') as csv_File:
-			linea = csv.reader(File)
-
-			if numero_linea > 0 :
-				
-				self.Videojuego.append(VideoJuego(linea[0],linea[1],linea[2],linea[3],linea[4],linea[5],linea[6],linea[7],linea[8],linea[9],self.comentarios))
-
-
-		return True		
-		
-
-
-	def mostrar_juego(self,ID):
+	def mostrar_juego(self,ID_V):
 		for videojuego in self.Videojuego:
-			if videojuego.ID_V == ID:
+			if videojuego.ID_V == ID_V:
 				return videojuego.dump()
 		return None			
 				
-	#def comentar(self,usuario,fecha,comentario):
+	def comentar(self,Nombre,usuario,fecha,comentario):
+		for juego in self.Videojuego:
+			if juego.Nombre == Nombre:
+				comentario = juego.Videojuego[11].append(Comentarios(usuario,fecha,comentario))
+				return comentario.dump()
+
+	def comentarios_de_juego(self,Nombre):
+		for juego in self.Videojuego:
+			if juego.Nombre == Nombre:
+				return json.dumps(Comentarios.dump() for comentario in Videojuego[11])
+
+					
+
+	def mostrar_comentarios(self):
 		
+		for juego in self.Videojuego:
+			for comentario in Videojuego[11]:
+				comentarios = list[comentario]
+
+		return json.dumps(comentarios.dump() for comentario in comentarios)		
 
 
 		# mostrar lista de videojuegos
