@@ -9,7 +9,7 @@ class CRUD_videojuegos:
 		self.Videojuego = []
 		self.Contador = 0
 
-		#crear un perfil de videojuego
+		#crear un videojuego
 	def crear_Videojuego(self,Nombre,Anio,precio,categoria1,categoria2,categoria3,Foto,Banner,Descripcion):
 		for videojuego in self.Videojuego:
 			if videojuego.Nombre == Nombre:
@@ -24,7 +24,7 @@ class CRUD_videojuegos:
 	def buscar_Videojuego(self,Nombre):
 		for videojuego in self.Videojuego:
 			if videojuego.Nombre == Nombre:
-				return Videojuego.dump()
+				return videojuego.dump()
 
 		return None	
 
@@ -76,17 +76,7 @@ class CRUD_videojuegos:
 			if juego.Nombre == Nombre:
 				return json.dumps(Comentarios.dump() for comentario in Videojuego[11])
 
-					
-
-	def mostrar_comentarios(self):
-		
-		for juego in self.Videojuego:
-			for comentario in Videojuego[11]:
-				comentarios = list[comentario]
-
-		return json.dumps(comentarios.dump() for comentario in comentarios)		
-
-
+						
 		# mostrar lista de videojuegos
 	def lista_videojuegos(self):
 	

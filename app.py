@@ -197,21 +197,21 @@ def agregar():
 @app.route('/pagina_juego')
 def mostrar():
 
-	ID = request.json["ID_V"]
+	ID = int(request.args.get("ID_V"))
 	juego = videojuegos.mostrar_juego(ID)
 
 
-	if juego is  None:
+	if juego is not None:
 		return {
-			'estado' : 0,
-			'datos' : 'Juego no encontrado'
+			'estado' : 1,
+			'datos' : juego
 
 		}
 		
 	else:
 		return {
-			'datos' : juego,
-			'estado': 1
+			'estado': 0,
+			'datos': 'juego no econtrado'
 		}
 
 @app.route('/info_juego',methods=['POST'])
