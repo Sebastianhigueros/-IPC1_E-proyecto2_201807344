@@ -215,7 +215,7 @@ def mostrar():
 		}
 
 @app.route('/info_juego',methods=['POST'])
-def buscarjuego:
+def buscarjuego():
 
 	juego = request.json['Nombre']
 
