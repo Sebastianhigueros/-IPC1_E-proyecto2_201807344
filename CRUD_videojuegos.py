@@ -80,4 +80,4 @@ class CRUD_videojuegos:
 		# mostrar lista de videojuegos
 	def lista_videojuegos(self):
 	
-		return json.dumps([VideoJuego.dump() for Videojuego in self.Videojuego])				
+		return json.dumps([Videojuego.dump() for Videojuego in self.Videojuego])				
